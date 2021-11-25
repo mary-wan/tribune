@@ -17,6 +17,7 @@ from decouple import config,Csv
 
 
 MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 # development
 if config('MODE')=='dev':
@@ -40,7 +41,7 @@ elif config('MODE')=='prod':
    }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+DATABASES = { 'default': dj_database_url.config() }
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
@@ -52,7 +53,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#245dl8uc$p@sr2+&_98y$4ja#3%_oiu=5%+ythgah%zk6s$t-'
+# SECRET_KEY = '#245dl8uc$p@sr2+&_98y$4ja#3%_oiu=5%+ythgah%zk6s$t-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
