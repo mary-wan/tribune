@@ -17,7 +17,6 @@ from decouple import config,Csv
 
 
 MODE=config("MODE", default="dev")
-SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 # development
 if config('MODE')=='dev':
@@ -36,7 +35,7 @@ if config('MODE')=='dev':
 else:
    DATABASES = {
        'default': dj_database_url.config(
-        #    default=config('DATABASE_URL')
+           default=config('DATABASE_URL')
        )
    }
 
