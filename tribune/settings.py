@@ -15,11 +15,12 @@ import django_heroku
 import dj_database_url
 from decouple import config,Csv
 
+
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 # development
-if config('MODE')=="dev":
+if config('MODE')=='dev':
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -35,7 +36,7 @@ if config('MODE')=="dev":
 else:
    DATABASES = {
        'default': dj_database_url.config(
-           default=config('DATABASE_URL')
+        #    default=config('DATABASE_URL')
        )
    }
 
@@ -52,7 +53,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '#245dl8uc$p@sr2+&_98y$4ja#3%_oiu=5%+ythgah%zk6s$t-'
+SECRET_KEY = '#245dl8uc$p@sr2+&_98y$4ja#3%_oiu=5%+ythgah%zk6s$t-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
