@@ -18,7 +18,8 @@ from decouple import config,Csv
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = os.environ.get('DEBUG', True)
 # development
 if config('MODE')=='dev':
    DATABASES = {
@@ -41,8 +42,8 @@ elif config('MODE')=='prod':
    }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES = { 'default': dj_database_url.config() }
-# DATABASES['default'].update(db_from_env)
+# DATABASES = { 'default': dj_database_url.config() }
+DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
