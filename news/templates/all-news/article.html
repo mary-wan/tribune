@@ -5,7 +5,7 @@
  <div class="container">
 
    <div class="row">
-     <img src="{{article.article_image.url}}"  class="img-responsive" alt="" height="200">
+     <img src="{{article.article_image.url}}"  class="img-responsive" alt="">
    </div>
 
    <div class="row">
@@ -13,11 +13,14 @@
    </div>
 
    <div class="row">
-     <p>{{article.post}}</p>
+     {% autoescape on %}
+     {{article.post| safe}}
+    {% endautoescape %}
+
    </div>
 
    <div class="row">
-    <small class="text-center text-muted">Posted by {{article.editor.first_name}} on {{article.pub_date|timesince}}</small>
+     <p>Posted {{article.pub_date|timesince}} by {{article.editor.first_name}}</p>
    </div>
 
  </div>

@@ -42,15 +42,20 @@ elif config('MODE')=='prod':
    }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES = { 'default': dj_database_url.config() }
-# DATABASES['default'].update(db_from_env)
+# DATABASES = { 'default': dj_database_url.config() }
+DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -73,7 +78,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news.apps.NewsConfig',
-    'bootstrap5',
+    'bootstrap4',
+    'crispy_forms',
+    'tinymce',
+    # 'django_registration',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -113,14 +122,14 @@ WSGI_APPLICATION = 'tribune.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'tribune',
-#         'USER':'moringa',
-#         'PASSWORD': 'pass',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tribune1',
+        'USER':'moringa',
+        'PASSWORD': 'pass',
+    }
+}
 
 
 # Password validation
@@ -170,3 +179,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# ACCOUNT_ACTIVATION_DAYS = 30
+
+LOGIN_REDIRECT_URL = 'newsToday'
+LOGOUT_REDIRECT_URL = 'login'
